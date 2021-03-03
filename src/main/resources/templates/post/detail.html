@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD</title>
+</head>
+<body>
+    <h1>Post Detail</h1>
+    <a href="/posts">List</a>
+    <a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit</a>
+    <form th:action="@{/posts/{id}(id=${post.id})}" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Delete">
+    </form>
+    <h2>[[ ${post.title} ]]</h2>
+    <p>[[ ${post.content} ]]</p>
+</body>
+</html>
