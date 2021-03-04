@@ -1,5 +1,7 @@
 package io.hphk.crud.post;
 
+import io.hphk.crud.user.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +14,19 @@ public class PostController {
 
     private PostService postService;
 
-    private PostController(PostService postService) {
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 
     @GetMapping("")
-    public String postList(Model model) {
+    public String postList(Authentication authentication, Model model) {
         Iterable<Post> posts = postService.all();
         model.addAttribute("posts", posts);
+        if (authentication != null) {
+            User user = (User) authentication.getPrincipal();
+            String username = user.getUsername();
+            model.addAttribute("username", username);
+        }
         return "post/list.html";
     }
 

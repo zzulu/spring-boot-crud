@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,6 +9,24 @@
     <title>CRUD</title>
 </head>
 <body>
+    <nav>
+        <ul sec:authorize="isAuthenticated()">
+            <li>
+                Hi, [[ ${username} ]]
+            </li>
+            <li>
+                <form th:action="@{/logout}" method="POST">
+                    <input type="submit" value="Logout"/>
+                </form>
+            </li>
+        </ul>
+        <ul sec:authorize="isAnonymous()">
+            <li>
+                <a th:href="@{/users/login}">Login</a>
+            </li>
+        </ul>
+    </nav>
+
     <h1>Posts</h1>
     <a href="/posts/new">New</a>
     <ul th:each="post: ${posts}">

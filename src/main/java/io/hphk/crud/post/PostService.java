@@ -10,7 +10,7 @@ public class PostService {
 
     private PostRepository postRepository;
 
-    private PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
